@@ -1,0 +1,105 @@
+@import url(./clear.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$BGcolor: #333;
+$Font: 'Roboto', sans-serif;
+$FontWeight: 400;
+$BlockWidth: 476px;
+
+body {
+    background-color: $BGcolor;
+    font-family: $Font;
+    font-weight: $FontWeight;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    padding: 8px;
+    background-color: #fff;
+    width: $BlockWidth;
+}
+
+h3 {
+    font-weight: $FontWeight;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+
+    margin: 12px auto;
+}
+
+.add-task, .task {
+    margin-bottom: 8px;
+    min-height: 45px;
+    border: 1px solid #989898;
+    border-radius: 6px;
+}
+
+.add-task {
+    form {
+        display: flex;
+        
+        input {
+            font: inherit;
+            border: none;
+            border-radius: inherit;
+            background-color: transparent;
+            padding: 12px;
+            width: 100%;
+        }
+    
+        button {
+            width: 15px;
+            height: 15px;
+            margin: 12px;
+            margin-left: 18px;
+
+            background: url(../cross.svg) no-repeat center;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+.task {
+    form{
+        display: flex;
+        min-height: inherit;
+        justify-content: space-between;
+        padding: 12px;
+    }
+    input {
+        padding: 2px 12px 0 0;
+        width: 20px;
+        height: 0;
+        opacity: 1;
+        &::before {
+            content: "";
+            display: block;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #998899;
+            border-radius: 50%;
+        }
+        &:checked::before {
+            background: url(../checked.svg) no-repeat center;
+        }
+    }
+
+    label{
+        max-width: 370px;
+        margin-right: auto;
+        margin-left: 12px;
+    }
+
+    button {
+        border: none;
+        padding: 0;
+        width: 16px;
+        height: 15px;
+        background: url(../cross.svg) no-repeat;
+    }
+}
