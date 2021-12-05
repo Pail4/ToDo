@@ -3,27 +3,18 @@ import {UI} from "./view.js"
 const list = [
     {
         id: 1,
-        name: 'create a post',
+        name: 'Сверстать этот TODO list',
         status: 'ToDo',
-        priority: 'low'
+        priority: 'high'
     },
     {
         id: 2,
-        name: 'test',
-        status: 'Done',
-        priority: 'high'
-    },
-    {
-        id: 3,
-        name: 'create a ToDo',
+        name: 'Посмотреть ютубчик',
         status: 'ToDo',
-        priority: 'high'
-    }
+        priority: 'low'
+    },
 ];
 
-const statuses = ['status', 'ToDo', 'Done'];
-
-const priorities = ['priority', 'high', 'low'];
 
 let freeId = list.length + 1;
 
@@ -37,18 +28,32 @@ function findIndexBy(property, value) {
 }
 
 function toggleStatus(event){
+    let taskId = Number(this.id);
     let index = findIndexBy('id', taskId)
 
-    if (index != -1)
-        list[index]['status'] = newStatus;
+    if (index === -1)
+        return;
+    let currentStatus = list[index]['status'];
+    if (currentStatus === "ToDo"){
+        list[index]['status'] = "Done";
+        this.parentNode.classList.add("done");
+    }
+    else if (currentStatus === "Done"){
+        list[index]['status'] = "ToDo";
+        this.parentNode.classList.remove("done");
+    }
 }
 
 function addTask(event){
     event.preventDefault()
-    let input = this.querySelector('input')
+    
+    let newTaskNode = this.cloneNode(true);
+    this.querySelector('input').value = "";
+
+    //Add task in prog
+    let input = newTaskNode.querySelector('input');
     let name = input.value;
     let priority = input.dataset.priority;
-    input.value = "";
 
     let newTask = {
         id: freeId++,
@@ -57,7 +62,29 @@ function addTask(event){
         priority
     };
     list.push(newTask);
-    updateContent();
+
+    //Add task in web
+    newTaskNode.addEventListener('submit', deleteTask);
+    input.addEventListener('click', toggleStatus);
+
+    input.className = "";
+    input.type = "checkbox";
+    input.name = name;
+    input.id = newTask.id;
+    input.after(document.createElement('label'));
+    input.nextSibling.for = name;
+    input.nextSibling.textContent = name;
+    newTaskNode.querySelector('button').className = "";
+
+    let div = document.createElement('div');
+    div.className = "task";
+    div.append(newTaskNode);
+    if (priority === "high"){
+        UI.highTaskList.append(div)
+    }
+    else{
+        UI.lowTaskList.append(div)
+    }
 }
 
 function deleteTask(event){
@@ -68,17 +95,12 @@ function deleteTask(event){
 
     if (index != -1) {
         list.splice(index, 1);
+        this.parentNode.remove();
     }
-    updateContent();
 }
 
 ///////////////////////////////////////////////////////////
 
-function updateContent(){
-    for (let item of list){
-
-    }
-}
 
 function AddEvent(elements, event, handler){
     for (let e of elements){
@@ -93,5 +115,4 @@ window.onload = function() {
 
     //creating new task
     AddEvent(UI.AddTaskForms, 'submit', addTask);
-
 }
