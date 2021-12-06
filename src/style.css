@@ -30,6 +30,13 @@ h3 {
   min-height: 45px;
   border: 1px solid #989898;
   border-radius: 6px;
+  transition: 0.2s;
+}
+
+.type-error {
+  border-color: rgba(138, 45, 45, 0.671);
+  background-color: rgba(165, 80, 80, 0.342);
+  transition: 0.2s;
 }
 
 .add-task form {

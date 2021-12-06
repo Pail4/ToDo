@@ -22,7 +22,6 @@ function getName(form){
     return form.querySelector('input').value
 }
 
-
 function findIndexBy(property, value) {
     return list.findIndex(item => item[property] === value);
 }
@@ -51,8 +50,13 @@ function addTask(event){
     let newTaskNode = this.cloneNode(true);
 
     let input = newTaskNode.querySelector('input');
-    if (input.value === "")
-        return
+    if (input.value.trim() === ""){
+        this.querySelector('input').parentNode.parentNode.classList.add('type-error');
+        let timer = setTimeout(() => {
+            this.querySelector('input').parentNode.parentNode.classList.remove('type-error');
+        }, 1000)
+        return;
+    }
 
     this.querySelector('input').value = "";
 
