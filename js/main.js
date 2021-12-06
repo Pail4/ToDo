@@ -36,11 +36,11 @@ function toggleStatus(event){
     let currentStatus = list[index]['status'];
     if (currentStatus === "ToDo"){
         list[index]['status'] = "Done";
-        this.parentNode.classList.add("done");
+        this.parentNode.parentNode.classList.add("done");
     }
     else if (currentStatus === "Done"){
         list[index]['status'] = "ToDo";
-        this.parentNode.classList.remove("done");
+        this.parentNode.parentNode.classList.remove("done");
     }
 }
 

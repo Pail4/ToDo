@@ -45,7 +45,7 @@ h3 {
 }
 .add-task form button {
   background: url(../cross.svg) no-repeat center;
-  transform: rotate(46deg);
+  transform: rotate(45deg);
   width: 13px;
   height: 13px;
   margin: 12px;
@@ -83,6 +83,9 @@ h3 {
   width: 16px;
   height: 15px;
   background: url(../cross.svg) no-repeat;
+}
+.task.done {
+  background-color: #F4F4F4;
 }
 
 /*# sourceMappingURL=style.css.map */
