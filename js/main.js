@@ -47,11 +47,17 @@ function toggleStatus(event){
 function addTask(event){
     event.preventDefault()
     
+    
     let newTaskNode = this.cloneNode(true);
+
+    let input = newTaskNode.querySelector('input');
+    if (input.value === "")
+        return
+
     this.querySelector('input').value = "";
 
     //Add task in prog
-    let input = newTaskNode.querySelector('input');
+    
     let name = input.value;
     let priority = input.dataset.priority;
 
@@ -80,10 +86,10 @@ function addTask(event){
     div.className = "task";
     div.append(newTaskNode);
     if (priority === "high"){
-        UI.highTaskList.append(div)
+        UI.highTaskList.prepend(div)
     }
     else{
-        UI.lowTaskList.append(div)
+        UI.lowTaskList.prepend(div)
     }
 }
 

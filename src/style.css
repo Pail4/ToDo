@@ -76,6 +76,7 @@ h3 {
   max-width: 370px;
   margin-right: auto;
   margin-left: 12px;
+  word-wrap: break-word;
 }
 .task button {
   border: none;

@@ -94,6 +94,7 @@ h3 {
         max-width: 370px;
         margin-right: auto;
         margin-left: 12px;
+        word-wrap: break-word;
     }
 
     button {
@@ -106,6 +107,5 @@ h3 {
 
     &.done {
         background-color: #F4F4F4;
-        ;
     }
 }
