@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 $BGcolor: #333;
+$BlockBG: #fff;
 $Font: 'Roboto', sans-serif;
 $FontWeight: 400;
 $BlockWidth: 476px;
@@ -19,7 +20,7 @@ body {
 
 .wrapper {
     padding: 8px;
-    background-color: #fff;
+    background-color: $BlockBG;
     width: $BlockWidth;
 }
 
@@ -53,13 +54,14 @@ h3 {
         }
     
         button {
-            width: 15px;
-            height: 15px;
-            margin: 12px;
-            margin-left: 18px;
-
             background: url(../cross.svg) no-repeat center;
-            transform: rotate(45deg);
+            transform: rotate(46deg);
+
+            width: 13px;
+            height: 13px;
+            margin: 12px;
+            //margin-left: 18px;
+
         }
     }
 }
@@ -74,18 +76,17 @@ h3 {
     input {
         padding: 2px 12px 0 0;
         width: 20px;
-        height: 0;
-        opacity: 1;
-        &::before {
-            content: "";
-            display: block;
-            width: 18px;
-            height: 18px;
-            border: 1px solid #998899;
-            border-radius: 50%;
-        }
-        &:checked::before {
-            background: url(../checked.svg) no-repeat center;
+        height: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 2px solid $BlockBG;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: 1px solid #998899;
+
+        &:checked{
+            background: #C4C4C4;
         }
     }
 
