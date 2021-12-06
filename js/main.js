@@ -85,11 +85,12 @@ function addTask(event){
     let div = document.createElement('div');
     div.className = "task";
     div.append(newTaskNode);
+    
     if (priority === "high"){
-        UI.highTaskList.prepend(div)
+        UI.TaskList.high.prepend(div)
     }
     else{
-        UI.lowTaskList.prepend(div)
+        UI.TaskList.low.prepend(div)
     }
 }
 
@@ -116,9 +117,9 @@ function AddEvent(elements, event, handler){
 
 window.onload = function() {
     //work with tasks
-    AddEvent(UI.TaskForms, 'submit', deleteTask);
+    AddEvent(UI.forms.Task, 'submit', deleteTask);
     AddEvent(UI.checkboxTask, 'click', toggleStatus);
 
     //creating new task
-    AddEvent(UI.AddTaskForms, 'submit', addTask);
+    AddEvent(UI.forms.AddTask, 'submit', addTask);
 }
