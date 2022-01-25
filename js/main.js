@@ -1,18 +1,8 @@
-import {UI} from "./view.js"
+import {UI} from "./view.js";
+import { format } from 'date-fns'
 
 const list = [
-    {
-        id: 1,
-        name: 'Сверстать этот TODO list',
-        status: 'ToDo',
-        priority: 'high'
-    },
-    {
-        id: 2,
-        name: 'Посмотреть ютубчик',
-        status: 'ToDo',
-        priority: 'low'
-    },
+
 ];
 
 
@@ -44,58 +34,56 @@ function toggleStatus(event){
 }
 
 function addTask(event){
-    event.preventDefault()
-    
-    
-    let newTaskNode = this.cloneNode(true);
+    event.preventDefault();
 
-    let input = newTaskNode.querySelector('input');
-    if (input.value.trim() === ""){
-        this.querySelector('input').parentNode.parentNode.classList.add('type-error');
+    let currentInput = this.querySelector('input')
+
+    if (currentInput.value.trim() === ""){
+        currentInput.parentNode.parentNode.classList.add('type-error');
         let timer = setTimeout(() => {
-            this.querySelector('input').parentNode.parentNode.classList.remove('type-error');
+            currentInput.parentNode.parentNode.classList.remove('type-error');
         }, 1000)
         return;
     }
 
-    this.querySelector('input').value = "";
-
     //Add task in prog
+
+    let newTaskNode = UI.Samples.task.cloneNode(true);
+    let input = newTaskNode.querySelector('input');
+    let label = newTaskNode.querySelector('label');
     
-    let name = input.value;
-    let priority = input.dataset.priority;
+    let name = currentInput.value;
+    let priority = currentInput.dataset.priority;
+    let date = format(new Date(), "dd.MM.yy");
 
     let newTask = {
         id: freeId++,
         name,
         status: "ToDo",
-        priority
+        priority,
+        date
     };
     list.push(newTask);
 
     //Add task in web
-    newTaskNode.addEventListener('submit', deleteTask);
+    newTaskNode.querySelector('form').addEventListener('submit', deleteTask);
     input.addEventListener('click', toggleStatus);
 
-    input.className = "";
-    input.type = "checkbox";
     input.name = name;
     input.id = newTask.id;
-    input.after(document.createElement('label'));
-    input.nextSibling.for = name;
-    input.nextSibling.textContent = name;
-    newTaskNode.querySelector('button').className = "";
+    input.value = currentInput.value;
+    label.for = name;
+    label.textContent = name;
+    newTaskNode.querySelector('.right-buttons span').textContent = date;
 
-    let div = document.createElement('div');
-    div.className = "task";
-    div.append(newTaskNode);
     
     if (priority === "high"){
-        UI.TaskList.high.prepend(div)
+        UI.TaskList.high.prepend(newTaskNode)
     }
     else{
-        UI.TaskList.low.prepend(div)
+        UI.TaskList.low.prepend(newTaskNode)
     }
+    currentInput.value = "";
 }
 
 function deleteTask(event){
@@ -109,6 +97,7 @@ function deleteTask(event){
         this.parentNode.remove();
     }
 }
+
 
 ///////////////////////////////////////////////////////////
 
