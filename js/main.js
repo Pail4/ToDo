@@ -8,40 +8,38 @@ const list = [
 
 let freeId = list.length + 1;
 
-function getName(form){
-    return form.querySelector('input').value
-}
-
 function findIndexBy(property, value) {
     return list.findIndex(item => item[property] === value);
 }
 
-function toggleStatus(event){
+function toggleStatus(){
     let taskId = Number(this.id);
     let index = findIndexBy('id', taskId)
 
     if (index === -1)
         return;
+    let thisTask = this.parentNode.parentNode;
     let currentStatus = list[index]['status'];
     if (currentStatus === "ToDo"){
         list[index]['status'] = "Done";
-        this.parentNode.parentNode.classList.add("done");
+        thisTask.classList.add("done");
     }
     else if (currentStatus === "Done"){
         list[index]['status'] = "ToDo";
-        this.parentNode.parentNode.classList.remove("done");
+        thisTask.classList.remove("done");
     }
 }
 
 function addTask(event){
     event.preventDefault();
 
-    let currentInput = this.querySelector('input')
+    let currentInput = this.querySelector('input');
+    let currentSearch = currentInput.parentNode.parentNode;
 
     if (currentInput.value.trim() === ""){
-        currentInput.parentNode.parentNode.classList.add('type-error');
-        let timer = setTimeout(() => {
-            currentInput.parentNode.parentNode.classList.remove('type-error');
+        currentSearch.classList.add('type-error');
+        setTimeout(() => {
+            currentSearch.classList.remove('type-error');
         }, 1000)
         return;
     }
@@ -92,10 +90,10 @@ function deleteTask(event){
     let taskId = Number(checkbox.id);
     let index = findIndexBy('id', taskId);
 
-    if (index != -1) {
-        list.splice(index, 1);
-        this.parentNode.remove();
-    }
+    if (index === -1) return;
+
+    list.splice(index, 1);
+    this.parentNode.remove();
 }
 
 
